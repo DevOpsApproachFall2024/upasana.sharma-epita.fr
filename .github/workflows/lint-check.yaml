@@ -22,19 +22,22 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: List Directory Contents
+        run: ls -R  # List all files and directories to ensure everything is in place
+
       - name: Install Node Dependencies
         run: npm ci
-        working-directory: nextjs-blog  
+        working-directory: nextjs-blog
         env:
           CI: TRUE
 
       - name: Test Code Linting
         run: npm run lint
-        working-directory: nextjs-blog  
+        working-directory: nextjs-blog
         
       - name: Save Code Linting Report JSON
         run: npm run lint:report
-        working-directory: nextjs-blog  
+        working-directory: nextjs-blog
         continue-on-error: true  
 
       - name: Annotate Code Linting Results
