@@ -3,7 +3,10 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "lint:report": "eslint . -f json -o eslint_report.json"
+
   },
   "dependencies": {
     "next": "latest",
@@ -12,5 +15,9 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "eslint": "^9.14.0",
+    "eslint-config-next": "^15.0.2"
   }
 }
