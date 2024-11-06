@@ -1,47 +1,38 @@
-name: Pull Request Workflow to Check Linting
+name: Test Linting on PR
 
-on: 
-  pull_request:
+on: [pull_request]
 
 jobs:
-  linting:
-    permissions:
-      contents: read
-      packages: read
-      pull-requests: read
-      checks: write
-    runs-on: self-hosted 
+  testing:
+    runs-on: self-hosted
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
           cache: 'npm'
-
-      - name: List Directory Contents
-        run: ls -R  
-
+      
       - name: Install Node Dependencies
         run: npm ci
         working-directory: nextjs-blog
         env:
           CI: TRUE
-
+      
       - name: Test Code Linting
         run: npm run lint
         working-directory: nextjs-blog
-        
+        continue-on-error: true
+      
       - name: Save Code Linting Report JSON
         run: npm run lint:report
         working-directory: nextjs-blog
-        continue-on-error: true  
-
+        continue-on-error: true
+      
       - name: Annotate Code Linting Results
         uses: ataylorme/eslint-annotate-action@v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          report-json: "nextjs-blog/eslint_report.json"  
+          report-json: "nextjs-blog/eslint_report.json"

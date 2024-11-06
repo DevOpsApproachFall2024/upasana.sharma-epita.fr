@@ -4,7 +4,9 @@
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:report": "eslint . -f json -o eslint_report.json"
+
   },
   "dependencies": {
     "next": "latest",
