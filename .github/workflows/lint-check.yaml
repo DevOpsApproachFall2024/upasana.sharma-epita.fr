@@ -17,18 +17,15 @@ jobs:
       
       - name: Install Node Dependencies
         run: npm ci
-        working-directory: nextjs-blog
         env:
           CI: TRUE
       
       - name: Test Code Linting
         run: npm run lint
-        working-directory: nextjs-blog
         continue-on-error: true
       
       - name: Save Code Linting Report JSON
         run: npm run lint:report
-        working-directory: nextjs-blog
         continue-on-error: true
       
       - name: Annotate Code Linting Results
